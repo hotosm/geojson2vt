@@ -1,21 +1,20 @@
-# geojson2mvt
+# geojson2vt
 
-Cuts a file pyramid of static vector tiles (.mvt) from a geojson file
-
-# Why
-
-We are using mapboxGL in [The Capital Planning Platform](http://capitalplanning.nyc.gov), and needed an alternative to downloading large static data files for local rendering on the map.  We didn't want to put them into a service that would require $ and maintenance, so static vector tiles seemed like a useful alternative for data that will not change very often.
+Generates Mapbox Vector Tiles from geojson files. It will output a directory containing the vector tiles in the pbf format with gzip compression.
 
 ## How to Use
 
-Install
-`npm install geojson2mvt`
+### Install
 
-`geojson2mvt` takes a config object with the GeoJSONs to encode and other options, and builds the pyramid in the specified output directory
+`npm install @hotosm/geojson2vt`
+
+### Using
+
+`geojson2vt` takes a config object with the GeoJSONs to encode and other options, and builds the vector tiles pyramid in the specified output directory.
 
 ```
 var fs = require('fs');
-var geojson2mvt = require('geojson2mvt');
+var geojson2vt = require('geojson2vt');
 
 var options = {
   layers: {
@@ -30,9 +29,8 @@ var options = {
   }
 };
 // build the static tile pyramid
-geojson2mvt(options);
+geojson2vt(options);
 ```
-Check out `/example` for a test project that you can try locally
 
 ## Options
 

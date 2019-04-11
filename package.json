@@ -1,7 +1,7 @@
 {
-  "name": "geojson2mvt",
-  "version": "0.0.3",
-  "description": "",
+  "name": "geojson2vt",
+  "version": "0.1.0",
+  "description": "Generates Mapbox Vector Tiles from geojson files.",
   "keywords": [
     "mapboxgl",
     "vector tiles",
@@ -12,14 +12,14 @@
   "main": "src/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/NYCPlanning/geojson2mvt.git"
+    "url": "https://github.com/hotosm/geojson2vt.git"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Humanitarian OpenStreetMap Team",
   "dependencies": {
-    "geojson-vt": "^2.4.0",
-    "vt-pbf": "^2.1.2"
+    "geojson-vt": "^3.2.1",
+    "vt-pbf": "^3.1.1"
   }
 }
