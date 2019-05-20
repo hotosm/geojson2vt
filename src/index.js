@@ -1,7 +1,7 @@
 var fs = require('fs');
 var vtpbf = require('vt-pbf');
 var geojsonvt = require('geojson-vt');
-var zlib = require('zlib');
+const { gzip } = require('node-gzip');
 
 var helpers = require('./helpers.js');
 
@@ -16,8 +16,7 @@ var geojson2vt = function(options) {
 
   var layerNames = Object.keys(options.layers);
 
-  var i = 0,
-    ii = layerNames.length;
+  var i = 0, ii = layerNames.length;
   var tileIndex = new Array(ii);
   for (; i < ii; ++i) {
     tileIndex[i] = geojsonvt(options.layers[layerNames[i]], {
@@ -41,16 +40,15 @@ var geojson2vt = function(options) {
   for (var z = options.zoom.min; z <= options.zoom.max; z++) {
 
     //create z directory in the root directory
+    console.log(`Processing zoom ${z}`);
     var zPath = `${options.rootDir}/${z.toString()}/`;
     try {
       fs.mkdirSync(zPath, 0777)
     } catch (err) {
       if (err.code !== 'EEXIST') callback(err);
     }
-
     // get the x and y bounds for the current zoom level
-    var tileBounds = helpers.getTileBounds(options.bbox, z);
-    console.log(tileBounds)
+    tileBounds = helpers.getTileBounds(options.bbox, z);
 
     // x loop
     for (var x = tileBounds.xMin; x <= tileBounds.xMax; x++) {
@@ -58,15 +56,13 @@ var geojson2vt = function(options) {
       // create x directory in the z directory
       var xPath = zPath + x.toString();
       try {
-        fs.mkdirSync(xPath, 0777)
+        fs.mkdirSync(xPath, 0777);
       } catch (err) {
         if (err.code !== 'EEXIST') callback(err);
       }
 
-
       // y loop
       for (var y = tileBounds.yMin; y <= tileBounds.yMax; y++) {
-        console.log(`Getting tile ${z} ${x} ${y} `);
         var mvt = getTile(z, x, y, tileIndex, layerNames);
 
         // TODO what should be written to the tile if there is no data?
@@ -82,13 +78,9 @@ var geojson2vt = function(options) {
 
 
 function writePbf(data, xPath, y) {
-  zlib.gzip(
-    data,
-    (err, buffer) => {
-      fs.writeFileSync(`${xPath}/${y}.pbf`, buffer);
-    }
+  gzip(data).then(
+    buffer => fs.writeFileSync(`${xPath}/${y}.pbf`, buffer)
   );
-
 }
 
 function getTile(z, x, y, tileIndex, layerNames) {

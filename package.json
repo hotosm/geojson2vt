@@ -1,6 +1,6 @@
 {
   "name": "@hotosm/geojson2vt",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Generates Mapbox Vector Tiles from geojson files.",
   "keywords": [
     "mapboxgl",
@@ -20,6 +20,7 @@
   "author": "Humanitarian OpenStreetMap Team",
   "dependencies": {
     "geojson-vt": "^3.2.1",
-    "vt-pbf": "^3.1.1"
+    "vt-pbf": "^3.1.1",
+    "node-gzip": "^1.1.2"
   }
 }

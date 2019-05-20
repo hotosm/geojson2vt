@@ -22,7 +22,7 @@ var options = {
     layer1: JSON.parse(fs.readFileSync('stops.geojson', "utf8"))
   },
   rootDir: 'tiles',
-  bbox : [40.426042,-74.599228,40.884448,-73.409958], //[south,west,north,east]
+  bbox: [40.426042,-74.599228,40.884448,-73.409958], // [south,west,north,east]
   zoom : {
     min : 8,
     max : 18,
