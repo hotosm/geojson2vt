@@ -1,6 +1,6 @@
 {
   "name": "@hotosm/geojson2vt",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Generates Mapbox Vector Tiles from geojson files.",
   "keywords": [
     "mapboxgl",

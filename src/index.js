@@ -1,7 +1,7 @@
 var fs = require('fs');
 var vtpbf = require('vt-pbf');
 var geojsonvt = require('geojson-vt');
-const { gzip } = require('node-gzip');
+const zlib  = require('zlib');
 
 var helpers = require('./helpers.js');
 
@@ -78,9 +78,8 @@ var geojson2vt = function(options) {
 
 
 function writePbf(data, xPath, y) {
-  gzip(data).then(
-    buffer => fs.writeFileSync(`${xPath}/${y}.pbf`, buffer)
-  );
+  buffer = zlib.gzipSync(data);
+  fs.writeFileSync(`${xPath}/${y}.pbf`, buffer);
 }
 
 function getTile(z, x, y, tileIndex, layerNames) {
